@@ -1,33 +1,16 @@
-/*
- * ==================================================
- *
- *       Filename:  putchar.c
- *
- *    Description:  
- *
- *        Version:  0.01
- *        Created:  2014年10月01日 星期三 15时23分11秒
- *         Author:  ChrisZZ, zchrissirhcz@163.com
- *        Company:  ZJUT
- *
- * ==================================================
- */
 #include <stdio.h>
-
-#if defined(__is_cppos_kernel)
+ 
+#if defined(__is_myos_kernel)
 #include <kernel/tty.h>
 #endif
-
-extern "C" {
-
-int putchar(int ic){
-#if defined(__is_cppos_kernel)
-	char c=(char)ic;//为啥要复制一份？不懂
+ 
+int putchar(int ic)
+{
+#if defined(__is_myos_kernel)
+	char c = (char) ic;
 	terminal_write(&c, sizeof(c));
 #else
-	//TODO: 需要自行实现系统调用的写操作
+	// TODO: You need to implement a write system call.
 #endif
-	return ic;//这个返回值也很诡异，感觉没有作用
-}
-
+	return ic;
 }
